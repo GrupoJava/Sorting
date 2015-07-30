@@ -3,6 +3,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.BorderLayout;
+import javax.swing.JButton;
 
 public class GUI {
 
@@ -39,5 +40,21 @@ public class GUI {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		
+		JButton btnSelectionSort = new JButton("Selection sort");
+		btnSelectionSort.setBounds(10, 33, 130, 23);
+		frame.getContentPane().add(btnSelectionSort);
+		
+		JButton btnQuickSort = new JButton("Quick Sort");
+		btnQuickSort.setBounds(10, 72, 130, 23);
+		frame.getContentPane().add(btnQuickSort);
+		
+		JButton btnNewButton = new JButton("Insertion Sort");
+		btnNewButton.setBounds(10, 108, 130, 23);
+		frame.getContentPane().add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Cebolla Sort");
+		btnNewButton_1.setBounds(10, 150, 130, 23);
+		frame.getContentPane().add(btnNewButton_1);
 	}
 }
