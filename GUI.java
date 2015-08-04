@@ -10,44 +10,43 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Universidad del Valle de Guatemala 
+ * Algoritmos y Estructura de Datos
+ * Seccion 10 
+ * @author Andre Rodas
+ * @author Delbert Custodio
+ * @author Josemite Noe 
+ * @author Rudy Garrido
+ * La clase <GUI> posee todos los atributos del JFrame la interfaz <ActionListener> para el manejo de evento del click en el boton
+ */
 public class GUI extends JFrame implements ActionListener{
 	
-	final private int cantidad = 100;
+	final private int cantidad = 5;
     private JButton Bselsort,Bquicksort,Binsertsort,Bmergesort,Bradixsort,creartxt,leertxt,copiartxt;
 	private PrintWriter escribir;
-	ArrayList<Integer> arreglo = null;
+	private Sorts mySort;
 	
+	
+	/**
+	 * Este procedimiento esconde o no los botones para evitar de que se realize un sort con el arreglo vacio
+	 * <a>: es true si esta vacio, se chequea si el arreglo esta null y su tamaño es mayor a uno
+	 */
 	public void habilitar(){
 		boolean a = false;
-		if ((arreglo!=null)&&(arreglo.size()>1))
+		if (mySort.vacio())
 			a = true;
 		Bselsort.setVisible(a);
 		Bquicksort.setVisible(a);
 		Binsertsort.setVisible(a);
 		Bmergesort.setVisible(a);
 		Bradixsort.setVisible(a);
-		copiartxt.setVisible(a);	
-
-		
+		copiartxt.setVisible(a);			
 	}
-	
-    public void intercambiar(int pos1, int pos2){
-    	int cambio = arreglo.get(pos1);
-    	arreglo.set(pos1, arreglo.get(pos2));
-    	arreglo.set(pos2, cambio);    	
-    }
-    
-    public void SelectionSort(){
-    	for (int i=0;i<=cantidad-2;i++){
-    		int minimo = i;
-    		for (int j=i+1;j<=cantidad-1;j++){
-    			if (arreglo.get(j)<arreglo.get(minimo))
-    				minimo=j;
-    		}
-    	intercambiar(i,minimo);    		
-    	}    	
-    }
-	
+		
+    /**
+     * Clase constructora, se crean 8 botones con ActionListener y se llama al constructor de la clase <Sorts> 
+     */
     public GUI() {
         setLayout(null);
         Bselsort=new JButton("Selection sort");
@@ -90,30 +89,45 @@ public class GUI extends JFrame implements ActionListener{
         add(copiartxt);
         copiartxt.addActionListener(this);   
         
+        mySort = new Sorts(cantidad);
+        
         habilitar();
     }
     
+
+    /* (non-Javadoc)
+     * Se realiza una diferente tarea dependiendo del .getSource del boton
+     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+     */
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==Bselsort) {
-        	SelectionSort();
+        	mySort.SelectionSort();
             setTitle("Selection Sort");
         }
         else
         if (e.getSource()==Bquicksort) {
+        	mySort.QuickSort();
             setTitle("Quick Sort");
         }
         else
         if (e.getSource()==Binsertsort) {
+        	mySort.InsertionSort();
             setTitle("Insertion Sort");
         }
         else
         if (e.getSource()==Bmergesort) {
+        	mySort.MergeSort();
             setTitle("Merge Sort");
         }  
         else
+        if (e.getSource()==Bradixsort) {
+           	mySort.RadixSort();
+            setTitle("Radix Sort");
+        }  
+            else
         if (e.getSource()==creartxt) {
             try {
-    			escribir = new PrintWriter("numeros.txt", "UTF-8");
+    			escribir = new PrintWriter("numeros.txt", "UTF-8");							//Crea archivo de textoS
     		} catch (FileNotFoundException | UnsupportedEncodingException m) {
     			m.printStackTrace();
     		}
@@ -125,11 +139,10 @@ public class GUI extends JFrame implements ActionListener{
         }  
         else
         if (e.getSource()==leertxt) {
-            arreglo = new ArrayList<Integer>();
             try {
-				for (String line : Files.readAllLines(Paths.get("numeros.txt"))) {
-					Integer i = Integer.valueOf(line);
-			        arreglo.add(i);
+				for (String line : Files.readAllLines(Paths.get("numeros.txt"))) {			//Permite la lectura del todo el archivo, lee linea por linea
+					Integer i = Integer.valueOf(line);					
+			        mySort.agregar(i);
 				}
 			} catch (IOException e1) {
 				e1.printStackTrace();
@@ -144,13 +157,16 @@ public class GUI extends JFrame implements ActionListener{
      			m.printStackTrace(); 
      		}
  			for (int i=1;i<=cantidad;i++)
- 				escribir.println(arreglo.get(i-1));
+ 				escribir.println(mySort.obtener(i-1));										//Se obtiene los datos del arreglo de MySort y se copia en un archivo de texto nuevo
  			escribir.close();           	
             setTitle("Copiar txt");
         }       
         habilitar();
     }
     
+    /**
+     * Se inicializan el constructor de <GUI> para crear el <JFrame> con sus respectivos elementos
+     */
     public static void main(String[] ar){
         GUI formulario1=new GUI();
         formulario1.setBounds(0,0,500,500);
