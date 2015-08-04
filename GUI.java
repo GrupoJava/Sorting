@@ -13,9 +13,23 @@ import java.util.Random;
 public class GUI extends JFrame implements ActionListener{
 	
 	final private int cantidad = 100;
-    private JButton selsort,boton2,boton3,boton4,creartxt,leertxt,copiartxt;
+    private JButton Bselsort,Bquicksort,Binsertsort,Bmergesort,Bradixsort,creartxt,leertxt,copiartxt;
 	private PrintWriter escribir;
-	ArrayList<Integer> arreglo;
+	ArrayList<Integer> arreglo = null;
+	
+	public void habilitar(){
+		boolean a = false;
+		if ((arreglo!=null)&&(arreglo.size()>1))
+			a = true;
+		Bselsort.setVisible(a);
+		Bquicksort.setVisible(a);
+		Binsertsort.setVisible(a);
+		Bmergesort.setVisible(a);
+		Bradixsort.setVisible(a);
+		copiartxt.setVisible(a);	
+
+		
+	}
 	
     public void intercambiar(int pos1, int pos2){
     	int cambio = arreglo.get(pos1);
@@ -36,25 +50,30 @@ public class GUI extends JFrame implements ActionListener{
 	
     public GUI() {
         setLayout(null);
-        selsort=new JButton("Selection sort");
-        selsort.setBounds(185,150,130,23);
-        add(selsort);
-        selsort.addActionListener(this);
+        Bselsort=new JButton("Selection sort");
+        Bselsort.setBounds(185,150,130,23);
+        add(Bselsort);
+        Bselsort.addActionListener(this);
         
-        boton2=new JButton("Quick Sort");
-        boton2.setBounds(185,180,130,23);
-        add(boton2);
-        boton2.addActionListener(this);
+        Bquicksort=new JButton("Quick Sort");
+        Bquicksort.setBounds(185,180,130,23);
+        add(Bquicksort);
+        Bquicksort.addActionListener(this);
         
-        boton3=new JButton("Insertion Sort");
-        boton3.setBounds(185,210,130,23);
-        add(boton3);
-        boton3.addActionListener(this);       
+        Binsertsort=new JButton("Insertion Sort");
+        Binsertsort.setBounds(185,210,130,23);
+        add(Binsertsort);
+        Binsertsort.addActionListener(this);       
         
-        boton4=new JButton("Cebolla Sort");
-        boton4.setBounds(185,240,130,23);
-        add(boton4);
-        boton4.addActionListener(this);   
+        Bmergesort=new JButton("Merge Sort");
+        Bmergesort.setBounds(185,240,130,23);
+        add(Bmergesort);
+        Bmergesort.addActionListener(this);   
+        
+        Bradixsort=new JButton("Radix Sort");
+        Bradixsort.setBounds(185,270,130,23);
+        add(Bradixsort);
+        Bradixsort.addActionListener(this);   
         
         creartxt=new JButton("Crear txt de "+String.valueOf(cantidad)+ " numeros");
         creartxt.setBounds(150,33,200,23);
@@ -67,27 +86,29 @@ public class GUI extends JFrame implements ActionListener{
         leertxt.addActionListener(this); 
         
         copiartxt=new JButton("Arreglo a txt");
-        copiartxt.setBounds(150,108,200,23);
+        copiartxt.setBounds(150,320,200,23);
         add(copiartxt);
-        copiartxt.addActionListener(this);         
+        copiartxt.addActionListener(this);   
+        
+        habilitar();
     }
     
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource()==selsort) {
+        if (e.getSource()==Bselsort) {
         	SelectionSort();
             setTitle("Selection Sort");
         }
         else
-        if (e.getSource()==boton2) {
-            setTitle("boton 2");
+        if (e.getSource()==Bquicksort) {
+            setTitle("Quick Sort");
         }
         else
-        if (e.getSource()==boton3) {
-            setTitle("boton 3");
+        if (e.getSource()==Binsertsort) {
+            setTitle("Insertion Sort");
         }
         else
-        if (e.getSource()==boton4) {
-            setTitle("boton 4");
+        if (e.getSource()==Bmergesort) {
+            setTitle("Merge Sort");
         }  
         else
         if (e.getSource()==creartxt) {
@@ -126,7 +147,8 @@ public class GUI extends JFrame implements ActionListener{
  				escribir.println(arreglo.get(i-1));
  			escribir.close();           	
             setTitle("Copiar txt");
-        }         
+        }       
+        habilitar();
     }
     
     public static void main(String[] ar){
