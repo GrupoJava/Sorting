@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Sorts {
 	
 	private int dim;
-	private ArrayList<Integer> arreglo = null;
+	private ArrayList<Comparacion> arreglo = null;
 
 	/** 
 	 * Metodo constructor
@@ -19,7 +19,7 @@ public class Sorts {
 	 */
 	public Sorts(int tamano) {
 		dim = tamano-1;
-        arreglo = new ArrayList<Integer>();
+        arreglo = new ArrayList<Comparacion>();
 	}
 	
 	/**
@@ -27,7 +27,7 @@ public class Sorts {
 	 * @param num es el numero que se quiere agregar al <arreglo>
 	 */
 	public void agregar(int num){
-		arreglo.add(num);
+		arreglo.add(new Comparacion(num));
 	}
 	
 	/**
@@ -36,7 +36,7 @@ public class Sorts {
 	 * @return numero que contiene el arreglo en la posicion pos
 	 */
 	public int obtener(int pos){
-		return (arreglo.get(pos));
+		return (arreglo.get(pos).getValor());
 	}
 	
 	/**
@@ -56,7 +56,7 @@ public class Sorts {
      * @param pos2	posicion 2
      */
     public void intercambiar(int pos1, int pos2){
-    	int cambio = arreglo.get(pos1);
+    	Comparacion cambio = arreglo.get(pos1);
     	arreglo.set(pos1, arreglo.get(pos2));
     	arreglo.set(pos2, cambio);    	
     }
@@ -65,7 +65,7 @@ public class Sorts {
     	for (int i=0;i<=dim-1;i++){
     		int minimo = i;
     		for (int j=i+1;j<=dim;j++){
-    			if (arreglo.get(j)<arreglo.get(minimo))
+    			if (arreglo.get(j).compareTo(arreglo.get(minimo))==1) /* < igual 1 en comparacion*/
     				minimo=j;
     		}
     	intercambiar(i,minimo);    		
@@ -73,9 +73,19 @@ public class Sorts {
     }
     
     public void QuickSort(){	
+    	
     }
     
     public void InsertionSort(){	
+    	for(int posicion =0; posicion < arreglo.size(); posicion++){
+			int numeroTemporal= arreglo.get(posicion).getValor();
+			int posicionPosible=posicion;
+			while(posicionPosible>0 && arreglo.get(posicionPosible-1).compareTo(new Comparacion(numeroTemporal)) ==0 ){
+				arreglo.set(posicionPosible, arreglo.get(posicionPosible-1));
+				posicionPosible--;
+			}
+			arreglo.set(posicionPosible, new  Comparacion(numeroTemporal));
+		}
     }
     
     public void MergeSort(){	
