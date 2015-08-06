@@ -5,13 +5,14 @@ import java.util.ArrayList;
  * Clase Sorts que contiene metodos de ordenamiento y como variables el <dim> para saber el tamano del arreglo y <arreglo> que es donde se guardan los numeros
  * @author Andre Rodas
  * @author Delbert Custodio
- * @author Josemite Noe 
+ * @author Yosemite Melendez 
  * @author Rudy Garrido
  */
 public class Sorts {
 	
 	private int dim;
 	private ArrayList<Integer> arreglo = null;
+	private int[] CopiaArreglo = new int[3000];
 
 	/** 
 	 * Metodo constructor
@@ -28,6 +29,7 @@ public class Sorts {
 	 */
 	public void agregar(int num){
 		arreglo.add(num);
+		CopiaArreglo[arreglo.size()-1] = num;
 	}
 	
 	/**
@@ -78,10 +80,52 @@ public class Sorts {
     public void InsertionSort(){	
     }
     
-    public void MergeSort(){	
+    public int[] MergeSort(int[] v){
+    	int i;
+    	int[] v2 = new int[v.length/2];
+    	int[] v3 = new int[v.length - v2.length];
+    	
+    	for (i =0 ; i<=v2.length; i++){
+    		v2[i] = v[i];
+    	}
+    	
+    	for ( i = 0; i<= v.length - v2.length; i++){
+    		v3[i] = v[i];
+    	}
+    	
+    	MergeSort(v2);
+    	MergeSort(v3);
+    	v = Merge(v,v2,v3);
+    	return v;
+    	
     }
     
-    public void RadixSort(){	
+    private int[] Merge(int[] v, int[] v2, int[] v3){
+    	
+    	int Final1 = 0;
+    	int Final2 = 0;
+    	
+    	int i = 0;
+    	
+    	while (Final1 < v2.length && Final2<v3.length){
+    		
+    		if (v2[Final1]<v3[Final2]){
+    			v[i] = v2[Final1];
+    			Final1++;
+    		}
+    		else{
+    			v[i] = v3[Final2];
+    			Final2++;
+    		}
+    	i++;	
+    	}
+    	return v;
     }
+    
+    
+    public int[] getV(){
+    	return CopiaArreglo;
+    }
+    
 
 }
