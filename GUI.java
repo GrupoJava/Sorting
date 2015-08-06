@@ -116,7 +116,9 @@ public class GUI extends JFrame implements ActionListener{
         }
         else
         if (e.getSource()==Bmergesort) {
-        	mySort.MergeSort();
+        	int[] v = new int[3000];
+        	v = mySort.getV();
+        	v = mySort.MergeSort(v);
             setTitle("Merge Sort");
         }  
         else
