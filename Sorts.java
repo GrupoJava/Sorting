@@ -79,7 +79,7 @@ public class Sorts {
     	for(int posicion =0; posicion < arreglo.size(); posicion++){
 			int numeroTemporal= arreglo.get(posicion).getValor();
 			int posicionPosible=posicion;
-			while(posicionPosible>0 && arreglo.get(posicionPosible-1).compareTo(new Comparacion(numeroTemporal)) ==0 ){
+			while(posicionPosible>0 && arreglo.get(posicionPosible-1).compareTo(new Comparacion(numeroTemporal)) ==1 ){
 				arreglo.set(posicionPosible, arreglo.get(posicionPosible-1));
 				posicionPosible--;
 			}
@@ -130,9 +130,9 @@ public class Sorts {
     }
     
     
-    public int[] getV(){
-    	return CopiaArreglo;
-    }
+    /*public int[] getV(){
+    	//return CopiaArreglo;
+    }*/
     
 
 }

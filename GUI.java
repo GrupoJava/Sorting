@@ -1,11 +1,13 @@
 import javax.swing.*;
 
 import java.awt.event.*;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Random;
@@ -22,10 +24,11 @@ import java.util.Random;
  */
 public class GUI extends JFrame implements ActionListener{
 	
-	final private int cantidad = 5;
+	final private int cantidad = 3000;
     private JButton Bselsort,Bquicksort,Binsertsort,Bmergesort,Bradixsort,creartxt,leertxt,copiartxt;
 	private PrintWriter escribir;
 	private Sorts mySort;
+	private String s;
 	
 	
 	/**
@@ -117,20 +120,23 @@ public class GUI extends JFrame implements ActionListener{
         else
         if (e.getSource()==Bmergesort) {
         	int[] v = new int[3000];
-        	v = mySort.getV();
+        	//v = mySort.getV();
         	v = mySort.MergeSort(v);
             setTitle("Merge Sort");
         }  
         else
         if (e.getSource()==Bradixsort) {
-           	mySort.RadixSort();
+           	//mySort.RadixSort();
             setTitle("Radix Sort");
         }  
             else
         if (e.getSource()==creartxt) {
             try {
-    			escribir = new PrintWriter("numeros.txt", "UTF-8");							//Crea archivo de textoS
-    		} catch (FileNotFoundException | UnsupportedEncodingException m) {
+            	Path currentRelativePath = Paths.get("");
+            	 s = currentRelativePath.toAbsolutePath().toString();
+            	System.out.println(s.replace(System.getProperty("file.separator"), "/"));
+    			escribir = new PrintWriter(s.replace(System.getProperty("file.separator"), "/")+"/numeros.txt", "UTF-8");
+    		} catch ( Exception m) {
     			m.printStackTrace();
     		}
 			Random rnd = new Random(); 
