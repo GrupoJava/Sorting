@@ -87,52 +87,66 @@ public class Sorts {
 		}
     }
     
-    public int[] MergeSort(int[] v){
-    	int i;
-    	int[] v2 = new int[v.length/2];
-    	int[] v3 = new int[v.length - v2.length];
-    	
-    	for (i =0 ; i<=v2.length; i++){
-    		v2[i] = v[i];
-    	}
-    	
-    	for ( i = 0; i<= v.length - v2.length; i++){
-    		v3[i] = v[i];
-    	}
-    	
-    	MergeSort(v2);
-    	MergeSort(v3);
-    	v = Merge(v,v2,v3);
-    	return v;
-    	
+    @SuppressWarnings("unused")
+   	public  ArrayList<Comparacion> MergeSort(ArrayList<Comparacion> P){
+       	
+       	ArrayList<Comparacion> v = new ArrayList<Comparacion>();
+       	ArrayList<Comparacion> v2 = new ArrayList<Comparacion>();
+       	ArrayList<Comparacion> v3 = new ArrayList<Comparacion>();
+       	int i;
+       	
+       	if (P.size() == 1){
+       		return P;
+       	}
+       	
+       	for (i=0; i<P.size()/2; i++){
+       		v2.add(P.get(i));
+       	}
+       	
+       	for (i=P.size()/2; i<P.size(); i++){
+       		v3.add(P.get(i));
+       	}
+       	
+       		v2 = MergeSort(v2);
+       		v3 = MergeSort(v3);
+           
+           	int Final1 = 0;
+           	int Final2 = 0;
+           	i = v2.size()+v3.size();
+           	while (i>0){
+           		if (Final2 == v3.size()){
+           			v.add( v2.get(Final1) );
+           			Final1++;
+           			i--;
+           		}
+           		else
+           			if (Final1 == v2.size()){
+           				v.add(v3.get(Final2));
+           				Final2++;
+           				i--;
+           			}
+           			else
+           				if ((v2.get(Final1).getValor()) < (v3.get(Final2).getValor()) ){
+           						v.add(v2.get(Final1));
+           						Final1++;
+           						i--;
+           				}
+           				else{
+           					v.add(v3.get(Final2));
+           					Final2++;
+           					i--;
+           				}
+           	}
+           	return v;
+       }
+    
+    public ArrayList<Comparacion> getV(){
+    	return arreglo;
     }
     
-    private int[] Merge(int[] v, int[] v2, int[] v3){
-    	
-    	int Final1 = 0;
-    	int Final2 = 0;
-    	
-    	int i = 0;
-    	
-    	while (Final1 < v2.length && Final2<v3.length){
-    		
-    		if (v2[Final1]<v3[Final2]){
-    			v[i] = v2[Final1];
-    			Final1++;
-    		}
-    		else{
-    			v[i] = v3[Final2];
-    			Final2++;
-    		}
-    	i++;	
-    	}
-    	return v;
+    public void setArreglo(ArrayList<Comparacion> P){
+    	arreglo = P;
     }
-    
-    
-    /*public int[] getV(){
-    	//return CopiaArreglo;
-    }*/
     
 
 }

@@ -29,6 +29,7 @@ public class GUI extends JFrame implements ActionListener{
 	private PrintWriter escribir;
 	private Sorts mySort;
 	private String s;
+	private ArrayList<Comparacion> v = new ArrayList<Comparacion>();
 	
 	
 	/**
@@ -119,9 +120,9 @@ public class GUI extends JFrame implements ActionListener{
         }
         else
         if (e.getSource()==Bmergesort) {
-        	int[] v = new int[3000];
-        	//v = mySort.getV();
+        	v = mySort.getV();
         	v = mySort.MergeSort(v);
+        	mySort.setArreglo(v);
             setTitle("Merge Sort");
         }  
         else
