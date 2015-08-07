@@ -25,7 +25,7 @@ import java.util.Random;
 public class GUI extends JFrame implements ActionListener{
 	
 	final private int cantidad = 3000;
-    private JButton Bselsort,Bquicksort,Binsertsort,Bmergesort,Bradixsort,creartxt,leertxt,copiartxt;
+    private JButton Bselsort,Bquicksort,Binsertsort,Bmergesort,creartxt,leertxt,copiartxt;
 	private PrintWriter escribir;
 	private Sorts mySort;
 	private String s;
@@ -44,7 +44,6 @@ public class GUI extends JFrame implements ActionListener{
 		Bquicksort.setVisible(a);
 		Binsertsort.setVisible(a);
 		Bmergesort.setVisible(a);
-		Bradixsort.setVisible(a);
 		copiartxt.setVisible(a);			
 	}
 		
@@ -52,45 +51,40 @@ public class GUI extends JFrame implements ActionListener{
      * Clase constructora, se crean 8 botones con ActionListener y se llama al constructor de la clase <Sorts> 
      */
     public GUI() {
-        setLayout(null);
+        getContentPane().setLayout(null);
         Bselsort=new JButton("Selection sort");
         Bselsort.setBounds(185,150,130,23);
-        add(Bselsort);
+        getContentPane().add(Bselsort);
         Bselsort.addActionListener(this);
         
         Bquicksort=new JButton("Quick Sort");
         Bquicksort.setBounds(185,180,130,23);
-        add(Bquicksort);
+        getContentPane().add(Bquicksort);
         Bquicksort.addActionListener(this);
         
         Binsertsort=new JButton("Insertion Sort");
-        Binsertsort.setBounds(185,210,130,23);
-        add(Binsertsort);
+        Binsertsort.setBounds(185,206,130,23);
+        getContentPane().add(Binsertsort);
         Binsertsort.addActionListener(this);       
         
         Bmergesort=new JButton("Merge Sort");
         Bmergesort.setBounds(185,240,130,23);
-        add(Bmergesort);
-        Bmergesort.addActionListener(this);   
-        
-        Bradixsort=new JButton("Radix Sort");
-        Bradixsort.setBounds(185,270,130,23);
-        add(Bradixsort);
-        Bradixsort.addActionListener(this);   
+        getContentPane().add(Bmergesort);
+        Bmergesort.addActionListener(this);
         
         creartxt=new JButton("Crear txt de "+String.valueOf(cantidad)+ " numeros");
         creartxt.setBounds(150,33,200,23);
-        add(creartxt);
+        getContentPane().add(creartxt);
         creartxt.addActionListener(this); 
         
         leertxt=new JButton("Txt a arreglo");
         leertxt.setBounds(150,72,200,23);
-        add(leertxt);
+        getContentPane().add(leertxt);
         leertxt.addActionListener(this); 
         
         copiartxt=new JButton("Arreglo a txt");
         copiartxt.setBounds(150,320,200,23);
-        add(copiartxt);
+        getContentPane().add(copiartxt);
         copiartxt.addActionListener(this);   
         
         mySort = new Sorts(cantidad);
@@ -127,11 +121,6 @@ public class GUI extends JFrame implements ActionListener{
             setTitle("Merge Sort");
         }  
         else
-        if (e.getSource()==Bradixsort) {
-           	//mySort.RadixSort();
-            setTitle("Radix Sort");
-        }  
-            else
         if (e.getSource()==creartxt) {
             try {
             	Path currentRelativePath = Paths.get("");

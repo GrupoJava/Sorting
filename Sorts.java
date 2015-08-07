@@ -89,54 +89,61 @@ public class Sorts {
     @SuppressWarnings("unused")
    	public  ArrayList<Comparacion> MergeSort(ArrayList<Comparacion> P){
        	
+    	
+    	//Se crean estos vectores de tipo ArrayList para poder llevar a cabo la recursion
        	ArrayList<Comparacion> v = new ArrayList<Comparacion>();
        	ArrayList<Comparacion> v2 = new ArrayList<Comparacion>();
        	ArrayList<Comparacion> v3 = new ArrayList<Comparacion>();
        	int i;
-       	
+       
+       	//Si el vector que se ordena slo tiene un elemento, se devuelve el mismo; caso trivial
        	if (P.size() == 1){
        		return P;
        	}
        	
+       	//Se copia hasta la mitad el vector
        	for (i=0; i<P.size()/2; i++){
        		v2.add(P.get(i));
        	}
-       	
+       	//Se copia de la mitad en adelante del vector
        	for (i=P.size()/2; i<P.size(); i++){
        		v3.add(P.get(i));
        	}
-       	
+       		//Recursion; sirve para separar los vectores hasta llegar al caso trivial
        		v2 = MergeSort(v2);
        		v3 = MergeSort(v3);
            
-           	int Final1 = 0;
-           	int Final2 = 0;
-           	i = v2.size()+v3.size();
+       		//Intercambio de los vectores ya ordenados
+           	int cont1 = 0;
+           	int cont2 = 0;
+           	i = v2.size()+v3.size();//Contador de elementos a ordenar
            	while (i>0){
-           		if (Final2 == v3.size()){
-           			v.add( v2.get(Final1) );
-           			Final1++;
+           		//Si se llega al tope de un vector, solo se agregan los elementos
+           		//ya ordenados del otro vector
+           		if (cont2 == v3.size()){
+           			v.add( v2.get(cont1) );
+           			cont1++;
            			i--;
            		}
            		else
-           			if (Final1 == v2.size()){
-           				v.add(v3.get(Final2));
-           				Final2++;
+           			if (cont1 == v2.size()){
+           				v.add(v3.get(cont2));
+           				cont2++;
            				i--;
            			}
-           			else
-           				if ((v2.get(Final1).getValor()) < (v3.get(Final2).getValor()) ){
-           						v.add(v2.get(Final1));
-           						Final1++;
+           			else //Intercambio
+           				if ((v2.get(cont1).getValor()) < (v3.get(cont2).getValor()) ){
+           						v.add(v2.get(cont1));
+           						cont1++;
            						i--;
            				}
            				else{
-           					v.add(v3.get(Final2));
-           					Final2++;
+           					v.add(v3.get(cont2));
+           					cont2++;
            					i--;
            				}
            	}
-           	return v;
+           	return v; //Se devuelve el vector
        }
     
 	public void QuickSort (int primero, int ultimo){
