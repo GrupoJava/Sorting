@@ -110,7 +110,8 @@ public class GUI extends JFrame implements ActionListener{
         }
         else
         if (e.getSource()==Bquicksort) {
-        	mySort.QuickSort();
+        	
+        	mySort.QuickSort(0, mySort.getV().size()-1);
             setTitle("Quick Sort");
         }
         else
@@ -135,7 +136,6 @@ public class GUI extends JFrame implements ActionListener{
             try {
             	Path currentRelativePath = Paths.get("");
             	 s = currentRelativePath.toAbsolutePath().toString();
-            	System.out.println(s.replace(System.getProperty("file.separator"), "/"));
     			escribir = new PrintWriter(s.replace(System.getProperty("file.separator"), "/")+"/numeros.txt", "UTF-8");
     		} catch ( Exception m) {
     			m.printStackTrace();

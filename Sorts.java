@@ -12,6 +12,8 @@ public class Sorts {
 	
 	private int dim;
 	private ArrayList<Comparacion> arreglo = null;
+	private int aux;
+	private int tamano;
 	/** 
 	 * Metodo constructor
 	 * @param tamano Es el size del arreglo, se realiza una resta con 1 <dim> ya que los arreglo comienzan en la posicion 0 
@@ -71,9 +73,6 @@ public class Sorts {
     	}    	
     }
     
-    public void QuickSort(){	
-    	
-    }
     
     public void InsertionSort(){	
     	for(int posicion =0; posicion < arreglo.size(); posicion++){
@@ -140,6 +139,43 @@ public class Sorts {
            	return v;
        }
     
+	public void QuickSort (int primero, int ultimo){
+	
+		int p = primero;	//Para realizar el recorrido del primer al ultimo elemento
+		int u = ultimo;		//Para realizar el recorrido del utlimo al primer elemento
+		// Se coloca el pivote como el numero de en medio
+		int pivote = arreglo.get((primero+ultimo)/2).getValor(); 	
+		
+		//Estas instruccinoes ayudan a dividir el arreglo
+		while (p <= u){
+			/*
+			Se verificaran los numeros a la izquierda del pivote que sean mayores que el 
+			y los numero a la derecha del pivote que sean menores a el. Cuando se identifiquen
+			se hará un intercambio de valores
+			*/
+			while (arreglo.get(p).getValor() < pivote){p++;}	//Busca elementos mayores al pivote
+			while (arreglo.get(u).getValor() > pivote){u--;}	//Busca elementos menores al pivote
+			
+			//Se realiza el intercambio de numeros utilizando una variable auxiliar
+			if (p <= u){
+				aux = arreglo.get(p).getValor();
+				arreglo.set(p, arreglo.get(u));
+				arreglo.set(u, new Comparacion(aux));
+				arreglo.set(u, new Comparacion(aux));
+					
+				//Mueve a la siguiente posicion
+				p++;
+				u--;
+			}
+		//Vuelve a llamar quick
+		if (primero < u){QuickSort (primero, u);}
+		if (p < ultimo) {QuickSort (p, ultimo);}
+		
+		}
+		
+	}
+    
+    
     public ArrayList<Comparacion> getV(){
     	return arreglo;
     }
@@ -147,6 +183,8 @@ public class Sorts {
     public void setArreglo(ArrayList<Comparacion> P){
     	arreglo = P;
     }
+    
+    
     
 
 }
