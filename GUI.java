@@ -104,7 +104,7 @@ public class GUI extends JFrame implements ActionListener{
         }
         else
         if (e.getSource()==Bquicksort) {
-        	
+       	
         	mySort.QuickSort(0, mySort.getV().size()-1);
             setTitle("Quick Sort");
         }
